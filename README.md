@@ -5,6 +5,9 @@
 ## 使用方式
 
 ```
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
     compile 'com.github.therander-huhu:AndroidORMLib:0.1.0'
 ```
 
