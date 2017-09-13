@@ -76,7 +76,27 @@ public class AutoDBHelper extends SQLiteOpenHelper {
             for (Field field : fields) {
                 field.setAccessible(true);
                 try {
-                    field.set(object, cursor.getString(cursor.getColumnIndex(field.getName())));
+                    Log.w("myFieldType", field.getType().getSimpleName());
+                    String type = field.getType().getSimpleName();
+                    if("boolean".equals(type) || "Boolean".equals(type)) {
+                        //TODOI
+//                        field.set(object, cursor.getString(cursor.getColumnIndex(field.getName())).equals("true"));
+                    }else if("int".equals(type) || "Integer".equals(type)) {
+                        field.set(object, cursor.getInt(cursor.getColumnIndex(field.getName())));
+                    }else if("double".equals(type) || "Double".equals(type)) {
+                        field.set(object, cursor.getDouble(cursor.getColumnIndex(field.getName())));
+                    }else if("float".equals(type) || "Float".equals(type)) {
+                        field.set(object, cursor.getFloat(cursor.getColumnIndex(field.getName())));
+                    }else if("long".equals(type) || "Long".equals(type)) {
+                        field.set(object, cursor.getLong(cursor.getColumnIndex(field.getName())));
+                    }else if("short".equals(type) || "Short".equals(type)) {
+                        field.set(object, cursor.getShort(cursor.getColumnIndex(field.getName())));
+                    }else if("byte".equals(type) || "Byte".equals(type)) {
+                        //TODO 暂时处理不了
+//                        field.set(object, (Byte)cursor.getString(cursor.getColumnIndex(field.getName())));
+                    }else if("String".equals(type)) {
+                        field.set(object, cursor.getString(cursor.getColumnIndex(field.getName())));
+                    }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
@@ -124,7 +144,28 @@ public class AutoDBHelper extends SQLiteOpenHelper {
         for (Field field : fields) {
             field.setAccessible(true);
             try {
-                values.put(field.getName(), field.get(object).toString());
+                Log.w("myFieldType", field.getType().getSimpleName());
+                String type = field.getType().getSimpleName();
+                if("boolean".equals(type) || "Boolean".equals(type)) {
+                    //Boolean无法从cursor中取出，所以只能用string代替
+                    values.put(field.getName(), object.toString());
+                }else if("int".equals(type) || "integer".equals(type)) {
+                    values.put(field.getName(), Integer.class.cast(field.get(object)));
+                }else if("double".equals(type) || "Double".equals(type)) {
+                    values.put(field.getName(), Double.class.cast(field.get(object)));
+                }else if("float".equals(type) || "Float".equals(type)) {
+                    values.put(field.getName(), Float.class.cast(field.get(object)));
+                }else if("long".equals(type) || "Long".equals(type)) {
+                    values.put(field.getName(), Long.class.cast(field.get(object)));
+                }else if("short".equals(type) || "Short".equals(type)) {
+                    values.put(field.getName(), Short.class.cast(field.get(object)));
+                }else if("byte".equals(type) || "Byte".equals(type)) {
+                    //byte无法从cursor中取出，所以只能用string代替
+                    values.put(field.getName(), field.get(object).toString());
+                }else if("String".equals(type)) {
+                    values.put(field.getName(), String.class.cast(field.get(object)));
+                }
+
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
