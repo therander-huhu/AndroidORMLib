@@ -21,12 +21,14 @@ public class MainActivity extends Activity {
         testModel.setProperty3("property3");
         testModel.setDoublePro(12.34);
         testModel.setIntPro(14);
+        testModel.setmBooleanPro(true);
 
         AutoDBHelper.getINSTANCE(this).save(testModel);
         Toast.makeText(this, AutoDBHelper.getINSTANCE(this).get(TestModel.class).get(0).getProperty1()
                 + AutoDBHelper.getINSTANCE(this).get(TestModel.class).get(0).getProperty2()
                 + AutoDBHelper.getINSTANCE(this).get(TestModel.class).get(0).getProperty3()
                 + AutoDBHelper.getINSTANCE(this).get(TestModel.class).get(0).getDoublePro()
-                + " " + AutoDBHelper.getINSTANCE(this).get(TestModel.class).get(0).getIntPro(), Toast.LENGTH_LONG).show();
+                + " " + AutoDBHelper.getINSTANCE(this).get(TestModel.class).get(0).getIntPro()
+                +AutoDBHelper.getINSTANCE(this).get(TestModel.class).get(0).getmBooleanPro().toString(), Toast.LENGTH_LONG).show();
     }
 }

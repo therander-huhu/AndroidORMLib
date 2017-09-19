@@ -76,11 +76,9 @@ public class AutoDBHelper extends SQLiteOpenHelper {
             for (Field field : fields) {
                 field.setAccessible(true);
                 try {
-                    Log.w("myFieldType", field.getType().getSimpleName());
                     String type = field.getType().getSimpleName();
                     if("boolean".equals(type) || "Boolean".equals(type)) {
-                        //TODOI
-//                        field.set(object, cursor.getString(cursor.getColumnIndex(field.getName())).equals("true"));
+                        field.set(object, cursor.getString(cursor.getColumnIndex(field.getName())).equals("true"));
                     }else if("int".equals(type) || "Integer".equals(type)) {
                         field.set(object, cursor.getInt(cursor.getColumnIndex(field.getName())));
                     }else if("double".equals(type) || "Double".equals(type)) {
@@ -148,7 +146,7 @@ public class AutoDBHelper extends SQLiteOpenHelper {
                 String type = field.getType().getSimpleName();
                 if("boolean".equals(type) || "Boolean".equals(type)) {
                     //Boolean无法从cursor中取出，所以只能用string代替
-                    values.put(field.getName(), object.toString());
+                    values.put(field.getName(), Boolean.class.cast(field.get(object)) ? "true" : "false");
                 }else if("int".equals(type) || "integer".equals(type)) {
                     values.put(field.getName(), Integer.class.cast(field.get(object)));
                 }else if("double".equals(type) || "Double".equals(type)) {

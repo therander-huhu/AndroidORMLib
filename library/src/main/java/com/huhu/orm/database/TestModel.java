@@ -1,10 +1,13 @@
 package com.huhu.orm.database;
 
+import java.util.List;
+
 /**
  * Created by steward on 2017/9/4.
  */
 
 public class TestModel {
+    private List<String> myList;
     private String property1;
     private String property2;
     private String property3;
@@ -17,6 +20,14 @@ public class TestModel {
     private boolean booleanPro;
     private Boolean mBooleanPro;
     private char charPro;
+
+    public List<String> getMyList() {
+        return myList;
+    }
+
+    public void setMyList(List<String> myList) {
+        this.myList = myList;
+    }
 
     public Boolean getmBooleanPro() {
         return mBooleanPro;
